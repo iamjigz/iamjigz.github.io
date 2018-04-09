@@ -12,23 +12,23 @@
           </a>
         </li>
         <li class="nav-item waves-light" mdbRippleRadius routerLinkActive="active">
-          <a class="nav-link" routerLink="/">GitHub</a>
+          <a class="nav-link" routerLink="/git">GitHub</a>
         </li>
-        <li class="nav-item dropdown" dropdown>
+        <li class="nav-item dropdown" dropdown routerLinkActive="active">
             <a dropdownToggle mdbRippleRadius type="button" class="nav-link dropdown-toggle waves-light" mdbRippleRadius>
               Showcase
               <span class="caret"></span>
             </a>
-            <div *dropdownMenu class="dropdown-menu dropdown dropdown-primary" role="menu">
-              <a class="dropdown-item waves-light" mdbRippleRadius href="#">Action</a>
-              <a class="dropdown-item waves-light" mdbRippleRadius href="#">Another action</a>
-              <a class="dropdown-item waves-light" mdbRippleRadius href="#">Something else here</a>
+            <div *dropdownMenu class="dropdown-menu dropdown dropdown-dark" role="menu">
+              <a class="dropdown-item waves-light" mdbRippleRadius routerLink="/showcase">Overview</a>
               <div class="divider dropdown-divider"></div>
               <a class="dropdown-item waves-light" mdbRippleRadius href="#">Separated link</a>
+              <a class="dropdown-item waves-light" mdbRippleRadius href="#">Another action</a>
+              <a class="dropdown-item waves-light" mdbRippleRadius href="#">Something else here</a>
             </div>
           </li>
-        <li class="nav-item waves-light" mdbRippleRadius>
-          <a class="nav-link">About</a>
+        <li class="nav-item waves-light" mdbRippleRadius routerLinkActive="active">
+          <a class="nav-link" routerLink="/about">About</a>
         </li>
       </ul>
       <ul class="navbar-nav nav-flex-icons">

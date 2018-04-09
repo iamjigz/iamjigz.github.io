@@ -9,6 +9,8 @@ import { AppComponent } from './app.component';
 import { HeaderComponent } from './shared/header/header.component';
 import { FooterComponent } from './shared/footer/footer.component';
 import { HomeComponent } from './ui/home/home.component';
+import { AboutComponent } from './ui/about/about.component';
+import { ShowcaseComponent } from './ui/showcase/showcase.component';
 
 
 @NgModule({
@@ -16,7 +18,9 @@ import { HomeComponent } from './ui/home/home.component';
 		AppComponent,
 		HeaderComponent,
 		FooterComponent,
-		HomeComponent
+		HomeComponent,
+		AboutComponent,
+		ShowcaseComponent
 	],
 	imports: [
 		BrowserModule,
