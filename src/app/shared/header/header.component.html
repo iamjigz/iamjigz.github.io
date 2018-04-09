@@ -1,40 +1,52 @@
-<mdb-navbar SideClass="navbar navbar-expand-lg navbar-dark green darken-4" [containerInside]="false">
-  <logo>
-    <a class="logo navbar-brand" href="#"><strong>App Name</strong></a>
-  </logo>
-  <links>
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item active waves-light" mdbRippleRadius>
-        <a class="nav-link">Home <span class="sr-only">(current)</span></a>
-      </li>
-      <li class="nav-item waves-light" mdbRippleRadius>
-        <a class="nav-link">Features</a>
-      </li>
-      <li class="nav-item waves-light" mdbRippleRadius>
-        <a class="nav-link">Pricing</a>
-      </li>
-      <li class="nav-item dropdown" dropdown>
-        <a dropdownToggle mdbRippleRadius type="button" class="nav-link dropdown-toggle waves-light" mdbRippleRadius>
-          Dropdown<span class="caret"></span></a>
-        <div *dropdownMenu class="dropdown-menu dropdown dropdown-primary" role="menu">
-          <a class="dropdown-item waves-light" mdbRippleRadius href="#">Action</a>
-          <a class="dropdown-item waves-light" mdbRippleRadius href="#">Another action</a>
-          <a class="dropdown-item waves-light" mdbRippleRadius href="#">Something else here</a>
-          <div class="divider dropdown-divider"></div>
-          <a class="dropdown-item waves-light" mdbRippleRadius href="#">Separated link</a>
-        </div>
-      </li>
-    </ul>
-    <ul class="navbar-nav nav-flex-icons">
-      <li class="nav-item waves-light" mdbRippleRadius>
-        <a class="nav-link"><i class="fa fa-facebook"></i></a>
-      </li>
-      <li class="nav-item waves-light" mdbRippleRadius>
-        <a class="nav-link"><i class="fa fa-twitter"></i></a>
-      </li>
-      <li class="nav-item waves-light" mdbRippleRadius>
-        <a class="nav-link"><i class="fa fa-instagram"></i></a>
-      </li>
-    </ul>
-  </links>
-</mdb-navbar>
+<mdb-navbar SideClass="navbar fixed-top navbar-expand-lg navbar-dark scrolling-navbar intro-fixed-nav" [containerInside]="false">
+    <logo>
+      <a class="logo navbar-brand" href="#">
+        <strong>Portfolio</strong>
+      </a>
+    </logo>
+    <links>
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item waves-light" mdbRippleRadius>
+          <a class="nav-link" routerLink="/">Home
+            <span class="sr-only">(current)</span>
+          </a>
+        </li>
+        <li class="nav-item waves-light" mdbRippleRadius routerLinkActive="active">
+          <a class="nav-link" routerLink="/">GitHub</a>
+        </li>
+        <li class="nav-item dropdown" dropdown>
+            <a dropdownToggle mdbRippleRadius type="button" class="nav-link dropdown-toggle waves-light" mdbRippleRadius>
+              Showcase
+              <span class="caret"></span>
+            </a>
+            <div *dropdownMenu class="dropdown-menu dropdown dropdown-primary" role="menu">
+              <a class="dropdown-item waves-light" mdbRippleRadius href="#">Action</a>
+              <a class="dropdown-item waves-light" mdbRippleRadius href="#">Another action</a>
+              <a class="dropdown-item waves-light" mdbRippleRadius href="#">Something else here</a>
+              <div class="divider dropdown-divider"></div>
+              <a class="dropdown-item waves-light" mdbRippleRadius href="#">Separated link</a>
+            </div>
+          </li>
+        <li class="nav-item waves-light" mdbRippleRadius>
+          <a class="nav-link">About</a>
+        </li>
+      </ul>
+      <ul class="navbar-nav nav-flex-icons">
+        <li class="nav-item waves-light" mdbRippleRadius>
+          <a class="nav-link">
+            <i class="fa fa-facebook"></i>
+          </a>
+        </li>
+        <li class="nav-item waves-light" mdbRippleRadius>
+          <a class="nav-link">
+            <i class="fa fa-github"></i>
+          </a>
+        </li>
+        <li class="nav-item waves-light" mdbRippleRadius>
+          <a class="nav-link">
+            <i class="fa fa-instagram"></i>
+          </a>
+        </li>
+      </ul>
+    </links>
+  </mdb-navbar>
