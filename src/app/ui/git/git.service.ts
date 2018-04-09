@@ -12,6 +12,9 @@ export class User {
   public id?: string;
   public avatar_url?: string;
   public url?: string;
+  public name?: string;
+  public bio?: string;
+  public location?: string;
   public followers_url?: string;
   public email?: string;
   public followers?: User[];
