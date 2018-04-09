@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 
@@ -11,6 +12,9 @@ import { FooterComponent } from './shared/footer/footer.component';
 import { HomeComponent } from './ui/home/home.component';
 import { AboutComponent } from './ui/about/about.component';
 import { ShowcaseComponent } from './ui/showcase/showcase.component';
+import { GitComponent } from './ui/git/git.component';
+
+import { GitService } from './ui/git/git.service';
 
 
 @NgModule({
@@ -20,15 +24,17 @@ import { ShowcaseComponent } from './ui/showcase/showcase.component';
 		FooterComponent,
 		HomeComponent,
 		AboutComponent,
-		ShowcaseComponent
+		ShowcaseComponent,
+		GitComponent
 	],
 	imports: [
-		BrowserModule,
+    BrowserModule,
+    HttpClientModule,
 		AppRoutingModule,
 		FlexLayoutModule,
 		MDBBootstrapModule.forRoot(),
 	],
-	providers: [],
+	providers: [GitService],
 	bootstrap: [AppComponent],
 	schemas: [NO_ERRORS_SCHEMA]
 })

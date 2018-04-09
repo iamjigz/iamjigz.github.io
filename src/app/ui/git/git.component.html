@@ -1,0 +1,56 @@
+<div class="view intro hm-white-light" style="background: url(https://source.unsplash.com/1RqXSxGfb0M/1200x800) no-repeat center center; background-size: cover; background-attachment: fixed; height: 1200px;">
+  <div class="full-bg-img">
+    <div class="container">
+      <div class="d-flex align-items-center d-flex justify-content-center" style="height: 1200px">
+
+        <section fxLayout="column">
+          <div class="jumbotron" fxFlex>
+            <h1 class="h1-responsive">Git Gud!</h1>
+            <p class="lead">Check out user's Git activity</p>
+            <hr class="my-2">
+            <div class="md-form">
+              <input [value]="searchTerm" #input (keyup)="onSearch(input.value)" type="text" class="form-control" mdbActive>
+            </div>
+          </div>
+
+          <section class="d-flex align-content-center flex-wrap" *ngIf="user">
+              <div class="card">
+                <div class="card-header mdb-color lighten-1 white-text">
+                  <h4>{{ user.login }}</h4>
+                </div>
+                <div class="card-body" fxLayout="column " fxLayoutAlign="center center">
+                  <div class="avatar">
+                    <img [src]="user.avatar_url" class="rounded-circle z-depth-1" alt="First sample avatar image">
+                  </div>
+                  <h4>Anna Deynah</h4>
+                  <h6 class="font-bold blue-text">Web Designer</h6>
+                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod eos id officiis hic tenetur.</p>
+
+                  <section fxLayout>
+                    <!--Facebook-->
+                    <a class="icons-sm fb-ic">
+                      <i class="fa fa-facebook"> </i>
+                    </a>
+                    <!--Twitter-->
+                    <a class="icons-sm tw-ic">
+                      <i class="fa fa-twitter"> </i>
+                    </a>
+                    <!--Instagram-->
+                    <a class="icons-sm ins-ic">
+                      <i class="fa fa-instagram"> </i>
+                    </a>
+                  </section>
+                </div>
+              </div>
+            </section>
+
+        </section>
+
+
+
+
+
+      </div>
+    </div>
+  </div>
+</div>
