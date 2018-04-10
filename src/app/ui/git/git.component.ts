@@ -1,6 +1,11 @@
 import { Component, OnInit } from "@angular/core";
+import { DatePipe } from '@angular/common';
+
 import { GitService, Repos, User, Commits } from "./git.service";
 import { Subject } from "rxjs";
+import { mergeMap } from 'rxjs/operators';
+
+const datePipe = new DatePipe('en-US');
 
 @Component({
   selector: "app-git",
@@ -16,21 +21,8 @@ export class GitComponent implements OnInit {
   chartOptions: any = {
     responsive: true
   };
-
-  public chartDatasets: Array<any> = [
-    { data: [65, 59, 80, 81, 56, 55, 40], label: "My First dataset" },
-    { data: [28, 48, 40, 19, 86, 27, 90], label: "My Second dataset" }
-  ];
-
-  public chartLabels: Array<any> = [
-    "Jan",
-    "Feb",
-    "Mar",
-    "Apr",
-    "May",
-    "Jun",
-    "Jul"
-  ];
+  chartLabels: Array<any>;
+  chartDatasets: Array<{ data?: Array<any>, label?: string }>
 
   public chartColors: Array<any> = [
     {
@@ -92,12 +84,34 @@ export class GitComponent implements OnInit {
 
   getStats(repo: string) {
     this.git.getCommitStats(repo).subscribe(res => {
-      this.generateTable(res);
+      this.generateTable(res, repo);
     });
   }
 
-  generateTable(arr: Array<any>) {
-    console.log(arr);
+  generateTable(arr: Array<any>, repo: string) {
+    let weeklyCommits = []
+
+    arr.forEach(data => {
+      if (data.total == 0) return
+      let date = datePipe.transform(data.week * 1000, 'EEEE, MMMM d')
+      console.log(data)
+      weeklyCommits.push(data.total)
+
+      if (this.chartLabels) {
+        this.chartLabels.push(date)
+      } else {
+        this.chartLabels = [date]
+      }
+    })
+
+    if (this.chartDatasets) {
+      this.chartDatasets.push({ data: weeklyCommits, label: repo })
+    } else {
+      this.chartDatasets = [{ data: weeklyCommits, label: repo }]
+    }
+
+    console.log(this.chartDatasets)
+    console.log(this.chartLabels)
   }
 
   onSearch(q: string) {
