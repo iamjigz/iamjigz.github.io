@@ -24,11 +24,19 @@ export class User {
 export class Repos {
   public id?: string;
   public name?: string;
+  public full_name?: string;
+  public description?: string;
   public html_url?: string;
   public url?: string;
   public updated_at?: string;
   public has_pages?: boolean;
   public homepage?: string;
+  public commits?: Commits[];
+}
+
+export class Commits {
+  public total?: number;
+  public week?: number;
 }
 
 @Injectable()
@@ -59,16 +67,18 @@ export class GitService {
     if (!endPoint.startsWith("/")) {
       url = this.gitApi + "/" + endPoint;
     }
-    console.log(url)
     return url;
   }
 
-  search(user: string): Observable<any> {
+  searchUser(user: string): Observable<any> {
     return this.get(`/users/${user}`)
   }
 
-  getUserInfo(endpoint: string): Observable<any> {
-    return this.get(endpoint)
+  getRepos(user: string): Observable<any> {
+    return this.get(`/users/${user}/repos`)
   }
 
+  getCommitStats(repo: string): Observable<any> {
+    return this.get(`repos/${repo}/stats/commit_activity`)
+  }
 }
