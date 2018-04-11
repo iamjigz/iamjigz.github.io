@@ -15,8 +15,11 @@
             </div>
           </div>
 
-          <div class="card">
-            <blockquote class="blockquote bq-warning" *ngIf="error">
+          <div class="card" *ngIf="error">
+            <blockquote class="blockquote bq-warning">
+              <button type="button" class="close" aria-label="Close" (click)="error = ''">
+                <span aria-hidden="true">&times;</span>
+              </button>
               <p class="bq-title">Warning</p>
               <p>{{ error }}</p>
             </blockquote>
@@ -53,7 +56,7 @@
             </div>
 
             <div style="display: block" *ngIf="chartDatasets">
-              <canvas mdbChart [chartType]="chartType" [datasets]="chartDatasets" [labels]="chartLabels" [colors]="chartColors" [options]="chartOptions"
+              <canvas *ngIf="chartDatasets.length > 0" mdbChart [chartType]="chartType" [datasets]="chartDatasets" [labels]="chartLabels" [colors]="chartColors" [options]="chartOptions"
                 [legend]="true" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)">
               </canvas>
             </div>

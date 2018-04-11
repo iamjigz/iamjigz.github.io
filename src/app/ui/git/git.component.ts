@@ -1,11 +1,11 @@
 import { Component, OnInit } from "@angular/core";
-import { DatePipe } from '@angular/common';
+import { DatePipe } from "@angular/common";
 
 import { GitService, Repos, User, Commits } from "./git.service";
 import { Subject } from "rxjs";
-import { mergeMap } from 'rxjs/operators';
+import { mergeMap } from "rxjs/operators";
 
-const datePipe = new DatePipe('en-US');
+const datePipe = new DatePipe("en-US");
 
 @Component({
   selector: "app-git",
@@ -22,18 +22,10 @@ export class GitComponent implements OnInit {
     responsive: true
   };
   chartLabels: Array<any>;
-  chartDatasets: Array<{ data?: Array<any>, label?: string }>
+  chartDatasets: Array<{ data?: Array<any>; label?: string }>;
+  cache: { dataset?: Array<any>; labels?: Array<any> };
 
   public chartColors: Array<any> = [
-    {
-      backgroundColor: "rgba(220,220,220,0.2)",
-      borderColor: "rgba(220,220,220,1)",
-      borderWidth: 2,
-      pointBackgroundColor: "rgba(220,220,220,1)",
-      pointBorderColor: "#fff",
-      pointHoverBackgroundColor: "#fff",
-      pointHoverBorderColor: "rgba(220,220,220,1)"
-    },
     {
       backgroundColor: "rgba(151,187,205,0.2)",
       borderColor: "rgba(151,187,205,1)",
@@ -47,7 +39,7 @@ export class GitComponent implements OnInit {
 
   constructor(private git: GitService) {
     this.search
-      .debounceTime(300)
+      .debounceTime(3000)
       .distinctUntilChanged()
       .subscribe(searchTerm => {
         this.searchUser(searchTerm);
@@ -64,7 +56,7 @@ export class GitComponent implements OnInit {
 
   private notify(message: string) {
     this.error = message;
-    setTimeout(() => (this.error = ""), 10000);
+    setTimeout(() => (this.error = ""), 60000);
   }
 
   searchUser(term: string) {
@@ -74,44 +66,59 @@ export class GitComponent implements OnInit {
         this.git.getRepos(term).subscribe(repos => {
           this.user.repos = repos;
           // repos.map(repo => {
-          //   this.getStats(repo.full_name)
+          //   if (this.limitDate(repo.updated_at)) this.getStats(repo.full_name)
           // })
-        });
+        }, err => this.notify(err.error.message));
       },
       err => this.notify(err.error.message)
     );
   }
 
+  private limitDate(date: any): boolean {
+    const today = new Date();
+    const updated = new Date(date);
+    const diff = Math.abs(today.getTime() - updated.getTime());
+    const days = Math.ceil(diff / (1000 * 3600 * 24));
+
+    if (days < 90) return true;
+  }
+
   getStats(repo: string) {
-    this.git.getCommitStats(repo).subscribe(res => {
-      this.generateTable(res, repo);
-    });
+    this.cache = {}
+    this.chartDatasets = this.cache.dataset
+    this.chartLabels = this.cache.labels
+
+    this.git.getCommitStats(repo).subscribe(
+      res => this.generateTable(res, repo),
+      err => this.notify(err.error.message),
+      () => {
+        this.chartDatasets = this.cache.dataset
+        this.chartLabels = this.cache.labels
+      }
+    );
   }
 
   generateTable(arr: Array<any>, repo: string) {
     let weeklyCommits = []
 
+    if (!(arr.length > 0)) return
     arr.forEach(data => {
-      if (data.total == 0) return
-      let date = datePipe.transform(data.week * 1000, 'EEEE, MMMM d')
-      console.log(data)
+      if (data.total == 0 || !this.limitDate(data.week * 1000)) return;
+      let date = datePipe.transform(data.week * 1000, "MMMM d yyyy");
       weeklyCommits.push(data.total)
 
-      if (this.chartLabels) {
-        this.chartLabels.push(date)
+      if (this.cache.labels) {
+        this.cache.labels.push(date)
       } else {
-        this.chartLabels = [date]
+        this.cache.labels = [date]
       }
-    })
+    });
 
-    if (this.chartDatasets) {
-      this.chartDatasets.push({ data: weeklyCommits, label: repo })
+    if (this.cache.dataset) {
+      this.cache.dataset.push({ data: weeklyCommits, label: repo })
     } else {
-      this.chartDatasets = [{ data: weeklyCommits, label: repo }]
+      this.cache.dataset = [{ data: weeklyCommits, label: repo }]
     }
-
-    console.log(this.chartDatasets)
-    console.log(this.chartLabels)
   }
 
   onSearch(q: string) {
