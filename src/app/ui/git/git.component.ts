@@ -63,11 +63,10 @@ export class GitComponent implements OnInit {
     this.git.searchUser(term).subscribe(
       res => {
         this.user = res as User;
+
         this.git.getRepos(term).subscribe(repos => {
           this.user.repos = repos;
-          // repos.map(repo => {
-          //   if (this.limitDate(repo.updated_at)) this.getStats(repo.full_name)
-          // })
+          if (!this.chartDatasets) this.getStats('iamjigz/jigz')
         }, err => this.notify(err.error.message));
       },
       err => this.notify(err.error.message)
@@ -103,7 +102,7 @@ export class GitComponent implements OnInit {
 
     if (!(arr.length > 0)) return
     arr.forEach(data => {
-      if (data.total == 0 || !this.limitDate(data.week * 1000)) return;
+      if (data.total == 0) return;
       let date = datePipe.transform(data.week * 1000, "MMMM d yyyy");
       weeklyCommits.push(data.total)
 

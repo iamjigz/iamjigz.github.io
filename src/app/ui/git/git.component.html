@@ -1,69 +1,62 @@
-<div class="view intro hm-white-light" style="background: url(https://source.unsplash.com/1RqXSxGfb0M/1200x800) no-repeat center center; background-size: cover; background-attachment: fixed; height: 1200px;">
-  <div class="full-bg-img">
-    <div class="container">
-      <div class="d-flex align-items-center d-flex justify-content-center" style="height: 900px">
+<section class="view intro hm-white-light" fxLayout="column" fxLayoutAlign="center center" style="background-image: url('https://source.unsplash.com/1RqXSxGfb0M/1200x800')">
+  <section fxLayout="column" fxLayoutGap="10px" fxFlexOffset="100px">
+    <div class="card">
+      <h3 class="card-header primary-color white-text">Git Gud!</h3>
+      <div class="card-body">
+        <h4 class="card-title">Check out user's Git activity</h4>
+        <p class="card-text">Enter git username below</p>
+        <div class="md-form">
+          <input [value]="searchTerm" #input (keyup)="onSearch(input.value)" type="text" class="form-control" mdbActive>
+        </div>
+      </div>
+    </div>
 
-        <section fxLayout="column" fxLayoutGap="10px">
-          <div class="card">
-            <h3 class="card-header primary-color white-text">Git Gud!</h3>
-            <div class="card-body">
-              <h4 class="card-title">Check out user's Git activity</h4>
-              <p class="card-text">Enter git username below</p>
-              <div class="md-form">
-                <input [value]="searchTerm" #input (keyup)="onSearch(input.value)" type="text" class="form-control" mdbActive>
-              </div>
-            </div>
-          </div>
+    <div class="card" *ngIf="error">
+      <blockquote class="blockquote bq-warning">
+        <button type="button" class="close" aria-label="Close" (click)="error = ''">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <p class="bq-title">Warning</p>
+        <p>{{ error }}</p>
+      </blockquote>
+    </div>
 
-          <div class="card" *ngIf="error">
-            <blockquote class="blockquote bq-warning">
-              <button type="button" class="close" aria-label="Close" (click)="error = ''">
-                <span aria-hidden="true">&times;</span>
-              </button>
-              <p class="bq-title">Warning</p>
-              <p>{{ error }}</p>
-            </blockquote>
-          </div>
+    <div class="card testimonial-card" *ngIf="user">
+      <div class="card-up blue-gradient">
+      </div>
 
-          <div class="card testimonial-card" *ngIf="user">
-            <div class="card-up blue-gradient">
-            </div>
+      <div class="avatar mx-auto white">
+        <img [src]="user.avatar_url" class="rounded-circle">
+      </div>
 
-            <div class="avatar mx-auto white">
-              <img [src]="user.avatar_url" class="rounded-circle">
-            </div>
+      <div fxLayout="column" fxLayoutAlign="center center" class="card-body">
+        <h4 class="card-title">
+          <strong>{{ user.name }}</strong>
+        </h4>
+        <h5 class="indigo-text">
+          <strong>{{ user.location }}</strong>
+        </h5>
+        <p class="card-text">{{ user.bio }}</p>
 
-            <div class="card-body text-center">
-              <h4 class="card-title">
-                <strong>{{ user.name }}</strong>
-              </h4>
-              <h5 class="indigo-text">
-                <strong>{{ user.location }}</strong>
-              </h5>
-              <p class="card-text">{{ user.bio }}</p>
+        <section fxLayout="column" fxLayoutAlign="center center" *ngIf="user.repos">
+          <h6>
+            <strong>{{ user.repos.length - 1 }} repositories found.</strong>
+            <small class="text-muted">Showing repos with GitHub Pages only.</small>
+          </h6>
 
-              <div class="d-flex justify-content-start">
-                <label class="black-text">Showing repos with GitHub Pages only.</label>
-              </div>
-              <section class="d-flex align-content-center flex-wrap">
-                <div *ngFor="let repo of user.repos">
-                  <div class="chip blue-gradient white-text" [mdbTooltip]="repo.description" placement="top" *ngIf="repo.homepage" (click)="getStats(repo.full_name)">
-                    {{ repo.name }}
-                    <!-- <a [href]="repo.homepage" class="white-text" target="_blank">{{ repo.name }}</a> -->
-                  </div>
-                </div>
-              </section>
-            </div>
-
-            <div style="display: block" *ngIf="chartDatasets">
-              <canvas *ngIf="chartDatasets.length > 0" mdbChart [chartType]="chartType" [datasets]="chartDatasets" [labels]="chartLabels" [colors]="chartColors" [options]="chartOptions"
-                [legend]="true" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)">
-              </canvas>
+          <div fxLayout>
+            <div *ngFor="let repo of user.repos">
+              <div class="chip blue-gradient white-text" [mdbTooltip]="repo.description" placement="top" *ngIf="repo.homepage" (click)="getStats(repo.full_name)">{{ repo.name }}</div>
             </div>
           </div>
         </section>
+      </div>
 
+      <div style="display: block" *ngIf="chartDatasets">
+        <canvas *ngIf="chartDatasets.length > 0" mdbChart [chartType]="chartType" [datasets]="chartDatasets" [labels]="chartLabels"
+          [colors]="chartColors" [options]="chartOptions" [legend]="true" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)">
+        </canvas>
       </div>
     </div>
-  </div>
-</div>
+  </section>
+</section>
