@@ -5,13 +5,14 @@
         <div class="row flex-center pt-5 mt-3">
           <div class="col-md-6 text-center text-md-left mb-5">
             <div class="white-text">
-              <h1 class="h1-responsive font-bold wow fadeInLeft" data-wow-delay="0.3s">Lorem ipsum</h1>
+              <h1 class="h1-responsive font-bold wow fadeInLeft" data-wow-delay="0.3s">Get in touch</h1>
               <hr class="hr-light wow fadeInLeft" data-wow-delay="0.3s">
-              <h6 class="wow fadeInLeft" data-wow-delay="0.3s">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rem repellendus quasi fuga nesciunt dolorum nulla
-                magnam veniam sapiente, fugiat! Commodi sequi non animi ea dolor molestiae, quisquam iste, maiores. Nulla.
+              <h6 class="wow fadeInLeft" data-wow-delay="0.3s">If you wanna get in touch, talk to me about a project collaboration or just say hi, fill up the form or send
+                an email to
+                <strong>jigzimon@gmail.com</strong>.
               </h6>
               <br>
-              <a class="btn peach-gradient wow fadeInLeft waves-light" data-wow-delay="0.3s" mdbRippleRadius>Learn more</a>
+              <a class="btn peach-gradient wow fadeInLeft waves-light" data-wow-delay="0.3s" mdbRippleRadius href="#footer">Learn more</a>
             </div>
           </div>
 
@@ -23,25 +24,40 @@
                   <hr>
                 </div>
 
-                <div class="md-form">
-                  <i class="fa fa-user prefix grey-text"></i>
-                  <input type="text" id="form3" class="form-control" mdbActive>
-                  <label for="form3">Your name</label>
-                </div>
-                <div class="md-form">
-                  <i class="fa fa-envelope prefix grey-text"></i>
-                  <input type="text" id="form2" class="form-control" mdbActive>
-                  <label for="form2">Your email</label>
+                <div fxLayoutAlign="center center" fxLayoutGap="10px">
+                  <i class="fas fa-user white-text"></i>
+                  <div class="md-form" fxFlex>
+                    <input type="text" id="name" class="form-control" mdbActive>
+                    <label for="name">Name</label>
+                  </div>
                 </div>
 
-                <div class="md-form">
-                  <i class="fa fa-pencil prefix grey-text"></i>
-                  <textarea type="text" id="form8" class="md-textarea"></textarea>
-                  <label for="form8">Your message</label>
+                <div fxLayoutAlign="center center" fxLayoutGap="10px">
+                  <i class="far fa-envelope white-text"></i>
+                  <div class="md-form" fxFlex>
+                    <input type="text" id="email" class="form-control" mdbActive>
+                    <label for="email">Email</label>
+                  </div>
+                </div>
+
+                <div fxLayoutAlign="center center" fxLayoutGap="10px">
+                  <i class="fas fa-phone white-text"></i>
+                  <div class="md-form" fxFlex>
+                    <input type="text" id="phone" class="form-control" mdbActive>
+                    <label for="phone">Phone</label>
+                  </div>
+                </div>
+
+                <div fxLayoutAlign="center center" fxLayoutGap="10px">
+                  <i class="fas fa-pencil-alt white-text"></i>
+                  <div class="md-form" fxFlex>
+                    <textarea type="text" id="message" class="md-textarea"></textarea>
+                    <label for="message">Tell me about your project</label>
+                  </div>
                 </div>
 
                 <div class="text-center">
-                  <button class="btn peach-gradient waves-light" mdbRippleRadius>Send</button>
+                  <button class="btn peach-gradient waves-light" mdbRippleRadius disabled>Send</button>
                   <hr>
                   <fieldset class="form-group">
                     <input type="checkbox" id="checkbox1">
@@ -56,4 +72,3 @@
     </div>
   </div>
 </section>
-
