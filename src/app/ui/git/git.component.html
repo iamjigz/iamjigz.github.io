@@ -43,7 +43,7 @@
             <strong>{{ user.repos.length - 1 }} repositories found.</strong>
             <small class="text-muted">Showing repos with GitHub Pages only.</small>
           </h6>
-
+          <p><small>Click to show weekly commit activity.</small></p>
           <div fxLayout>
             <div *ngFor="let repo of user.repos">
               <div class="chip blue-gradient white-text" [mdbTooltip]="repo.description" placement="top" *ngIf="repo.homepage" (click)="getStats(repo.full_name)">{{ repo.name }}</div>

@@ -17,15 +17,15 @@ export class GitComponent implements OnInit {
   search: Subject<string> = new Subject<string>();
   user: User;
   error: string;
+  cache: { dataset?: Array<any>; labels?: Array<any> };
+
   chartType: string = "line";
   chartOptions: any = {
     responsive: true
   };
   chartLabels: Array<any>;
   chartDatasets: Array<{ data?: Array<any>; label?: string }>;
-  cache: { dataset?: Array<any>; labels?: Array<any> };
-
-  public chartColors: Array<any> = [
+  chartColors: Array<any> = [
     {
       backgroundColor: "rgba(151,187,205,0.2)",
       borderColor: "rgba(151,187,205,1)",
