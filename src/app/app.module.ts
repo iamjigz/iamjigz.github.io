@@ -10,7 +10,7 @@ import { AppComponent } from './app.component';
 import { HeaderComponent } from './shared/header/header.component';
 import { FooterComponent } from './shared/footer/footer.component';
 import { HomeComponent } from './ui/home/home.component';
-import { AboutComponent } from './ui/about/about.component';
+import { ContactComponent } from './ui/contact/contact.component';
 import { ShowcaseComponent } from './ui/showcase/showcase.component';
 import { GitComponent } from './ui/git/git.component';
 
@@ -23,7 +23,7 @@ import { GitService } from './ui/git/git.service';
 		HeaderComponent,
 		FooterComponent,
 		HomeComponent,
-		AboutComponent,
+		ContactComponent,
 		ShowcaseComponent,
 		GitComponent
 	],
