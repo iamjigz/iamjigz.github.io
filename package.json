@@ -8,12 +8,13 @@
     "build": "ng build --prod",
     "test": "ng test",
     "lint": "ng lint",
-		"e2e": "ng e2e",
-		"deploy": "ng build --prod --base-href \"/jigz/\" && ngh --no-silent",
+    "e2e": "ng e2e",
+    "deploy": "ng build --prod --base-href \"/jigz/\" && ngh --no-silent",
     "deploy-max": "node --max_old_space_size=5048 ./node_modules/@angular/cli/bin/ng build --prod --base-href \"/jigz/\" && ngh --no-silent"
   },
   "private": true,
   "dependencies": {
+    "@agm/core": "^1.0.0-beta.2",
     "@angular/animations": "^5.2.0",
     "@angular/cdk": "^5.2.4",
     "@angular/common": "^5.2.0",
@@ -37,6 +38,7 @@
     "@angular/cli": "~1.7.1",
     "@angular/compiler-cli": "^5.2.0",
     "@angular/language-service": "^5.2.0",
+    "@types/googlemaps": "^3.30.8",
     "@types/jasmine": "~2.8.3",
     "@types/jasminewd2": "~2.0.2",
     "@types/node": "~6.0.60",
