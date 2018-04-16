@@ -1,0 +1,33 @@
+<section class="view intro hm-white-light" fxLayout="column" fxLayoutAlign="center center" style="background-image: url('https://source.unsplash.com/H5PnIYI_1I0/1200x800')">
+  <section fxLayout fxLayoutGap="10px" fxFlexOffset="100px">
+
+    <div class="card" fxFlex>
+      <div class="card-header deep-orange lighten-1 white-text">
+        Bucket List
+      </div>
+      <div class="card-body">
+        <h4 class="card-title">Where to?</h4>
+        <p class="card-text">Add locations and places you want to visit</p>
+        <div class="md-form">
+          <input [(ngModel)]="newItem" mdbActive [placeholder]="newItem" type="text" id="location" class="form-control">
+        </div>
+        <a class="btn peach-gradient btn-sm waves-light" mdbRippleRadius (click)="addItem()">Add location</a>
+      </div>
+    </div>
+
+    <div class="card" fxFlex>
+      <div class="card-header deep-orange lighten-1 white-text">
+        Locations
+      </div>
+      <div class="card-body" fxLayout="column" [@bucketlist]="bucketlist.length">
+        <h4 class="card-title">You have {{ bucketlist.length }} places you want to visit</h4>
+        <p class="card-text">Plan and set up your itinerary</p>
+
+        <div fxLayout *ngFor="let place of bucketlist; let i = index">
+          <a fxFlex class="btn peach-gradient btn-sm waves-light" mdbRippleRadius (click)="removeItem(i)">{{ place }}</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</section>
