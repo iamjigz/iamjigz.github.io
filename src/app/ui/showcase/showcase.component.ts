@@ -14,13 +14,22 @@ export class ShowcaseComponent implements OnInit {
     this.projects = [
       {
         title: "Bucket List",
-        icon: "fa fa-plane",
+        icon: "fas fa-plane",
         category: "Travels",
         desc:
           "Create and plan your own bucket list of places you want to visit. Powered by Google Places API.",
         image:
-          "https://source.unsplash.com/6_pFPo2YM9c/300x300",
+          "https://source.unsplash.com/6_pFPo2YM9c/500x500",
         link: "/showcase/bucketlist"
+      },{
+        title: "Trivia",
+        icon: "fas fa-gamepad",
+        category: "Entertainment",
+        desc:
+          "Answer trivia questions. Powered by OpenTriviaDB API.",
+        image:
+          "https://source.unsplash.com/PJzc7LOt2Ig/500x500",
+        link: "/showcase/trivia"
       }
     ];
   }
