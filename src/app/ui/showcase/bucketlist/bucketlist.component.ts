@@ -3,6 +3,7 @@ import {
   ElementRef,
   NgZone,
   OnInit,
+  AfterViewInit,
   ViewChild
 } from "@angular/core";
 import { FormControl } from "@angular/forms";
@@ -22,6 +23,7 @@ export interface BucketList {
   location?: string;
   placeId?: string;
   places?: Array<any>;
+  photos?: Array<any>;
 }
 
 @Component({
@@ -77,25 +79,11 @@ export interface BucketList {
   ]
 })
 export class BucketListComponent implements OnInit {
-  bucketlist: Array<BucketList> = [
-    {
-      location: "Tokyo, Japan",
-      placeId: "ChIJXSModoWLGGARILWiCfeu2M0",
-      places: []
-    },
-    {
-      location: "New York, NY, USA",
-      placeId: "ChIJOwg_06VPwokRYv534QaPC8g",
-      places: []
-    },
-    {
-      location: "San Francisco, CA, USA",
-      placeId: "ChIJIQBpAG2ahYAR_6128GcTUEo",
-      places: []
-    }
-  ];
-  newItem: { location?: string; placeId?: string };
+  bucketlist: Array<BucketList> = [];
+  newItem: { location?: string; placeId?: string; places?: Array<any>; photos?: Array<any>};
+  searchTerm: string = "Tokyo, Japan";
   apiKey: string = "AIzaSyB3u-Gzcds2RawF_HLPOmmWHPFojFms6aE";
+  place: any;
 
   public latitude: number;
   public longitude: number;
@@ -107,21 +95,27 @@ export class BucketListComponent implements OnInit {
   constructor(private mapsAPILoader: MapsAPILoader, private ngZone: NgZone) {}
 
   addItem() {
+    if (!this.newItem.location) return
+
     this.bucketlist.push({
       location: this.newItem.location,
       placeId: this.newItem.placeId,
+      photos: this.newItem.photos,
       places: []
     });
     this.newItem = {};
-    console.log(this.bucketlist);
+    this.searchTerm = ''
+
   }
 
   removeItem(i) {
     this.bucketlist.splice(i, 1);
   }
 
-  searchNearby(location: string) {
-    // this.mapLoader(location, "restaurants")
+  setPlan(id: string) {
+    this.place = this.bucketlist.find(item => {
+      return item.placeId === id
+    })
   }
 
   ngOnInit() {
@@ -136,13 +130,17 @@ export class BucketListComponent implements OnInit {
     //set current position
     this.setCurrentPosition();
 
-    this.mapLoader(this.searchElementRef.nativeElement, "(cities)");
+    this.mapLoader("(cities)");
   }
 
-  private mapLoader(search: any, type: string): any {
+  ngAfterViewInit() {
+    this.searchElementRef.nativeElement.value = this.searchTerm
+  }
+
+  private mapLoader(type: string): any {
     this.mapsAPILoader.load().then(() => {
       let autocomplete = new google.maps.places.Autocomplete(
-        search,
+        this.searchElementRef.nativeElement,
         {
           types: [type]
         }
@@ -154,7 +152,8 @@ export class BucketListComponent implements OnInit {
           if (place.formatted_address) {
             this.newItem = {
               location: place.formatted_address,
-              placeId: place.place_id
+              placeId: place.place_id,
+              photos: this.getPhotos(place)
             };
           }
 
@@ -170,6 +169,19 @@ export class BucketListComponent implements OnInit {
         });
       });
     });
+  }
+
+  private getPhotos(place: any): Array<any> {
+    let photos = place.photos
+    let urls = []
+
+    photos.forEach(photo => {
+      urls.push(photo.getUrl({
+        maxWidth: 300,
+        maxHeight: 300
+      }))
+    });
+    return urls
   }
 
   private setCurrentPosition() {

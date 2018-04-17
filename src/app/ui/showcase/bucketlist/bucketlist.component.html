@@ -1,15 +1,15 @@
 <section class="view intro hm-white-light" fxLayout="column" fxLayoutAlign="center center" style="background-image: url('https://source.unsplash.com/H5PnIYI_1I0/1200x800')">
   <section class="container" fxLayout="column" fxLayoutGap="10px" fxFlexOffset="100px" fxFill>
 
-    <section fxLayout fxLayoutGap="10px">
+    <section fxLayout fxLayout.xs="column" fxLayoutGap="10px">
       <div class="card" fxFlex>
         <div class="card-header deep-orange lighten-1 white-text">Bucket List</div>
         <div class="card-body">
           <h4 class="card-title">Where to?</h4>
           <p class="card-text">Add locations and places you want to visit</p>
-          <div class="md-form">
+          <div class="md-form" fxLayout>
             <input placeholder="Enter Location" mdbActive autocorrect="off" autocapitalize="off" spellcheck="off" type="text" class="form-control"
-              #search [(ngModel)]="newItem" [formControl]="searchControl">
+              #search [(ngModel)]="searchTerm" [formControl]="searchControl">
           </div>
           <button class="btn peach-gradient btn-sm btn-rounded waves-light" mdbRippleRadius (click)="addItem()" [disabled]="!newItem">Add location</button>
         </div>
@@ -21,8 +21,8 @@
           <h4 class="card-title">You have {{ bucketlist.length }} places you want to visit</h4>
           <p class="card-text">Plan and set up your itinerary</p>
 
-          <div fxLayout fxFlexFill *ngFor="let place of bucketlist; let i = index">
-            <a fxFlex class="btn peach-gradient btn-sm waves-light" mdbRippleRadius (click)="searchNearby(place.location)">{{ place.location }}</a>
+          <div fxLayout *ngFor="let place of bucketlist; let i = index">
+            <a fxFlex class="btn peach-gradient btn-sm waves-light" mdbRippleRadius (click)="setPlan(place.placeId)">{{ place.location }}</a>
             <a class="btn btn-sm btn-outline-warning" mdbRippleRadius (click)="removeItem(i)">
               <i class="far fa-trash-alt"></i>
             </a>
@@ -31,6 +31,18 @@
       </div>
     </section>
 
+    <div class="card" fxFlex *ngIf="place">
+      <div class="card-header deep-orange lighten-1 white-text">Photos</div>
+      <div class="card-body" fxLayout="column" [@bucketlist]="place.photos.length">
+        <h4 class="card-title">There are {{ place.photos.length }} photos for {{ place.location }}</h4>
+        <p class="card-text">Plan and set up your itinerary</p>
+
+        <div fxLayout="row wrap" fxLayoutGap="10px">
+          <img fxFlex [src]="photo" *ngFor="let photo of place.photos">
+        </div>
+      </div>
+    </div>
+
     <div class="card" fxFlex>
       <div class="card-header deep-orange lighten-1 white-text">Map</div>
       <div class="card-body">
@@ -38,21 +50,6 @@
         <agm-map fxFlex [latitude]="latitude" [longitude]="longitude" [scrollwheel]="false" [zoom]="zoom">
           <agm-marker [latitude]="latitude" [longitude]="longitude"></agm-marker>
         </agm-map>
-      </div>
-    </div>
-
-    <div class="card" fxFlex>
-      <div class="card-header deep-orange lighten-1 white-text">Nearby Places</div>
-      <div class="card-body" fxLayout="column" [@bucketlist]="bucketlist.length">
-        <h4 class="card-title">You have {{ bucketlist.length }} places you want to visit</h4>
-        <p class="card-text">Plan and set up your itinerary</p>
-
-        <div fxLayout *ngFor="let place of bucketlist; let i = index">
-          <a fxFlex class="btn peach-gradient btn-sm waves-light" mdbRippleRadius>{{ place.location }}</a>
-          <a class="btn btn-sm btn-outline-warning" mdbRippleRadius (click)="removeItem(i)">
-            <i class="far fa-trash-alt"></i>
-          </a>
-        </div>
       </div>
     </div>
   </section>
