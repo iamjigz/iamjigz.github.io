@@ -8,13 +8,12 @@
             <strong>Projects</strong>
           </h2>
 
-          <p class="section-description white-text">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur
-            sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+          <p class="section-description white-text">Some simple stand-alone projects to view and interact with.</p>
 
-          <div class="row text-center">
-            <div class="col-lg-4 col-md-12 mb-r">
+          <div fxLayout="row wrap" fxLayoutAlign="center center" fxLayoutGap="10px">
+            <div class="col-lg-4 col-md-12 mb-r" *ngFor="let project of projects">
               <div class="view overlay hm-white-slight z-depth-2 waves-light" mdbRippleRadius>
-                <img src="https://mdbootstrap.com/img/Photos/Others/food.jpg" alt="Sample project image">
+                <img [src]="project.image" alt="Project image">
                 <a>
                   <div class="mask"></div>
                 </a>
@@ -23,55 +22,12 @@
               <div class="card-body mt-1">
                 <a href="" class="pink-text">
                   <h5>
-                    <i class="fa fa-coffee"></i> Culinary</h5>
+                    <i [class]="project.icon"></i> {{ project.category }}</h5>
                 </a>
-                <h4>Title of the news</h4>
-                <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti
-                  atque.</p>
-                <a class="btn btn-indigo btn-sm waves-light" mdbRippleRadius>
-                  <i class="fa fa-clone left"></i> View project</a>
-              </div>
-            </div>
-
-            <div class="col-lg-4 col-md-6 mb-r">
-              <div class="view overlay hm-white-slight z-depth-2 waves-light" mdbRippleRadius>
-                <img src="https://mdbootstrap.com/img/Photos/Others/project4.jpg" alt="Sample project image">
-                <a>
-                  <div class="mask"></div>
-                </a>
-              </div>
-
-              <div class="card-body mt-1">
-                <a href="" class="blue-text">
-                  <h5>
-                    <i class="fa fa-camera"></i> Business</h5>
-                </a>
-                <h4>Title of the news</h4>
-                <p>Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime facere
-                  possimus.</p>
-                <a class="btn btn-indigo btn-sm waves-light" mdbRippleRadius>
-                  <i class="fa fa-clone left"></i> View project</a>
-              </div>
-            </div>
-
-            <div class="col-lg-4 col-md-6 mb-r">
-              <div class="view overlay hm-white-slight z-depth-2 waves-light" mdbRippleRadius>
-                <img src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img (73).jpg" alt="Sample project image">
-                <a>
-                  <div class="mask"></div>
-                </a>
-              </div>
-
-              <div class="card-body mt-1">
-                <a href="" class="purple-text">
-                  <h5>
-                    <i class="fa fa-plane"></i> Travels</h5>
-                </a>
-                <h4>Title of the news</h4>
-                <p>Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates
-                  repudiandae.
+                <h4>{{ project.title }}</h4>
+                <p>{{ project.desc }}
                 </p>
-                <a class="btn btn-indigo btn-sm waves-light" mdbRippleRadius>
+                <a class="btn btn-indigo btn-sm waves-light" mdbRippleRadius  [routerLink]="project.link">
                   <i class="fa fa-clone left"></i> View project</a>
               </div>
             </div>
