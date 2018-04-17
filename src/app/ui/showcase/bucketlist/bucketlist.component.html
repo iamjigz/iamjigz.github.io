@@ -37,8 +37,8 @@
         <h4 class="card-title">There are {{ place.photos.length }} photos for {{ place.location }}</h4>
         <p class="card-text">Plan and set up your itinerary</p>
 
-        <div fxLayout="row wrap" fxLayoutGap="10px">
-          <img fxFlex [src]="photo" *ngFor="let photo of place.photos">
+        <div fxLayout="row wrap" fxLayoutAlign="center center" fxLayoutGap="10px">
+          <img [src]="photo" *ngFor="let photo of place.photos">
         </div>
       </div>
     </div>
