@@ -1,0 +1,35 @@
+<section class="view intro hm-white-light" fxLayout="column" fxLayoutAlign="center center" style="background-image: url('https://source.unsplash.com/H5PnIYI_1I0/1200x800')">
+  <section class="container" fxLayout="column" fxLayoutGap="10px" fxFlexOffset="100px" fxFill>
+
+    <div class="card" fxFlex>
+      <div class="card-header deep-orange lighten-1 white-text">Categories</div>
+      <div class="card-body">
+        <h4 class="card-title">Choose your desired categories</h4>
+        <p class="card-text">You can only choose one.</p>
+        <div fxLayout="row wrap" fxLayoutAlign="center center" fxLayoutGap="10px" [@items]="categories.length">
+          <button *ngFor="let cat of categories" class="btn peach-gradient btn-sm waves-light" mdbRippleRadius (click)="getQuestions(cat.id)">{{ cat.name }}</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" fxFlex *ngIf="finished">
+      <div class="card-header deep-orange lighten-1 white-text">Score</div>
+      <div class="card-body" fxLayout="column" [@items]="question.options">
+        <h4 class="card-title">You got {{ score }} out of {{ total }}!</h4>
+      </div>
+    </div>
+
+    <div class="card" fxFlex *ngIf="question && !finished">
+      <div class="card-header deep-orange lighten-1 white-text">Category: {{ question.category }}</div>
+      <div class="card-body" fxLayout="column" [@items]="question.options">
+        <h4 class="card-title" [innerHTML]="question.question"></h4>
+        <p class="card-text">{{ question.difficulty | uppercase }} worth {{ question.points }} points. Question {{ questionIndex }} of {{ questions.length }}.</p>
+
+        <section fxLayout="row wrap" fxLayoutAlign="center center" fxLayoutGap="10px">
+          <button *ngFor="let opt of question.options" class="btn peach-gradient waves-light" mdbRippleRadius (click)="submit(opt)" [innerHTML]="opt"></button>
+        </section>
+      </div>
+    </div>
+
+  </section>
+</section>
