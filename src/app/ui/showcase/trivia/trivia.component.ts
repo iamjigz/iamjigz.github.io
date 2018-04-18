@@ -92,19 +92,22 @@ export class TriviaComponent implements OnInit {
   public score: number = 0;
   public total: number = 0;
   public finished: boolean = false;
+  public imageUrl: string;
 
   constructor(private http: HttpClient) {}
 
   getQuestions(id: number) {
-    this.http
+    this.reset();
+
+    return this.http
       .get(`${this.apiRoot}/api.php?amount=10&category=${id}`)
       .subscribe(res => {
         if (!(res["response_code"] === 0)) return;
         this.questions = res["results"] as Question[];
-        this.score = 0;
-        this.finished = false;
-        this.nextQuestion();
-      });
+      },
+      err => console.log(err),
+      () => this.nextQuestion()
+    );
   }
 
   submit(ans?: string) {
@@ -119,7 +122,6 @@ export class TriviaComponent implements OnInit {
       this.question = this.questions[this.questionIndex];
 
       let options = [].concat(this.getOptions(this.question));
-
       this.question.options = options;
 
       switch (this.question.difficulty) {
@@ -137,14 +139,18 @@ export class TriviaComponent implements OnInit {
       }
       this.questionIndex++;
     } else {
-      this.getScore();
+      this.finished = true
+      this.imageUrl = `https://source.unsplash.com/500x500/?${this.question.category}`
     }
-    console.log(this.score);
   }
 
-  getScore() {
-    this.finished = true;
-    console.log("Finished", this.score);
+  private reset() {
+    this.questions = []
+    this.question = {} as Question
+    this.questionIndex = 0
+    this.score = 0
+    this.total = 0
+    this.finished = false
   }
 
   private getOptions(question: Question) {
