@@ -66,11 +66,20 @@ export class GitComponent implements OnInit {
 
         this.git.getRepos(term).subscribe(repos => {
           this.user.repos = repos;
-          if (!this.chartDatasets) this.getStats('iamjigz/jigz')
+          if (!this.chartDatasets && this.user.login === 'iamjigz') this.getStats('iamjigz/jigz')
+          else {
+            this.cache = {};
+            this.chartDatasets = this.cache.dataset
+            this.chartLabels = this.cache.labels
+          }
         }, err => this.notify(err.error.message));
       },
       err => this.notify(err.error.message)
     );
+  }
+
+  navigate(url: string) {
+    window.open(url, "_blank");
   }
 
   private limitDate(date: any): boolean {

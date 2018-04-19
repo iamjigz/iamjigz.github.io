@@ -1,5 +1,5 @@
-<section class="view intro hm-white-light" fxLayout="column" fxLayoutAlign="center center" style="background-image: url('https://source.unsplash.com/1RqXSxGfb0M/1200x800')">
-  <section fxLayout="column" fxLayoutGap="10px" fxFlexOffset="100px">
+<section class="view intro hm-white-light" fxFlex fxLayout="column" fxLayoutAlign="center center" style="background-image: url('https://source.unsplash.com/1RqXSxGfb0M/1200x800')">
+  <section class="container" fxLayout="column" fxLayoutGap="10px" fxFlexOffset="100px">
     <div class="card">
       <h3 class="card-header primary-color white-text">Git Gud!</h3>
       <div class="card-body">
@@ -43,16 +43,17 @@
             <strong>{{ user.repos.length - 1 }} repositories found.</strong>
             <small class="text-muted">Showing repos with GitHub Pages only.</small>
           </h6>
-          <p><small>Click to show weekly commit activity.</small></p>
-          <div fxLayout>
+          <p><small>Click to show weekly commit activity. Double-click for source.</small></p>
+          <div fxLayout="row wrap" fxLayoutAlign="center center">
             <div *ngFor="let repo of user.repos">
-              <div class="chip blue-gradient white-text" [mdbTooltip]="repo.description" placement="top" *ngIf="repo.homepage" (click)="getStats(repo.full_name)">{{ repo.name }}</div>
+              <div class="chip blue-gradient white-text" [mdbTooltip]="repo.description" placement="top" *ngIf="repo.homepage"
+              (click)="getStats(repo.full_name)" (dblclick)="navigate(repo.html_url)">{{ repo.name }}</div>
             </div>
           </div>
         </section>
       </div>
 
-      <div style="display: block" *ngIf="chartDatasets">
+      <div style="display: block" *ngIf="chartDatasets && user.repos">
         <canvas *ngIf="chartDatasets.length > 0" mdbChart [chartType]="chartType" [datasets]="chartDatasets" [labels]="chartLabels"
           [colors]="chartColors" [options]="chartOptions" [legend]="true" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)">
         </canvas>
