@@ -9,8 +9,8 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "deploy": "ng build --prod --base-href \"/jigz/\" && ngh --no-silent",
-    "deploy-max": "node --max_old_space_size=5048 ./node_modules/@angular/cli/bin/ng build --prod --base-href \"/jigz/\" && ngh --no-silent"
+    "deploy": "ng build --prod && ngh --branch=master --no-silent",
+    "deploy-max": "node --max_old_space_size=5048 ./node_modules/@angular/cli/bin/ng build --prod && ngh --branch=master --no-silent"
   },
   "private": true,
   "dependencies": {
